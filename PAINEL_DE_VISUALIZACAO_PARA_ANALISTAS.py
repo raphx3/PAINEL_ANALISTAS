@@ -22,7 +22,7 @@ dados ['10D_mean_precipitacao'] = dados ['precipitacao'].rolling(10).mean().bfil
 st.set_page_config(page_title=None, page_icon=None, layout="centered", initial_sidebar_state="auto", menu_items=None)
 #st.logo (r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES/DASHBOARD/LOGO_UMISAN.png')
 st.title ('Reporte operacional para controle interno')
-st.sidebar.title("Configurações")
+#st.sidebar.title("Configurações")
 
 
 #%% TEXTO 1
