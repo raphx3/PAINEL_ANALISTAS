@@ -302,10 +302,10 @@ st.markdown('É possível interagir com a tabela abaixo mas recomenda-se que se 
 
 
 # Carregar a matriz do arquivo Excel
-matriz = pd.read_excel(r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES/DASHBOARD/RESULTADOS_MATRIZ_COM_ERROS.xlsx')
+#matriz = pd.read_excel(r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES/DASHBOARD/RESULTADOS_MATRIZ_COM_ERROS.xlsx')
 
 # Definindo a coluna 'Parametro' como índice
-matriz = matriz.set_index('Parametro')
+#matriz = matriz.set_index('Parametro')
 
 # Estilizando a tabela com arredondamento apenas para exibição, sem alterar o DataFrame original
 st.dataframe(matriz.round(2))
