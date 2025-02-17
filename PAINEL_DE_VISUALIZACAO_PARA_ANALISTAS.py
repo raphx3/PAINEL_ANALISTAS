@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-import plotly.express as px
+import altair as alt
 
 #%% DADOS
 tempo = pd.date_range(start='2025/01/01',end='2025/12/31', freq='D')
@@ -26,7 +26,7 @@ st.title ('Reporte operacional para controle interno')
 
 
 #%% TEXTO 1
-st.subheader ('Método')
+st.subheader ('Sobre')
 st.markdown('Painel para a análise e tomada de decisões a partir de dados <b style="color:black">meteoceanográficos</b> referentes ao projeto PDMETEO. ', unsafe_allow_html=True)
 st.markdown('A versão atual conta com dados fictícios de temperatura, umidade e precipitação sendo resumidas como estando <b style="color:green">aprovadas</b> ou <b style="color:red">reprovadas</b> considerando os critérios técnicos descritos em "Metologia".', unsafe_allow_html=True)
 
@@ -187,34 +187,109 @@ st.subheader ('Matriz de qualidade')
 st.markdown('A matriz resume o resultado dos diversos parâmetros considerados durante a etapa de processamento e filtragem dos dado brutos. Valores acima de 10% são considerados críticos e devem ser reportados e investigados.', unsafe_allow_html=True)
 
 #%% MAPA DE CALOR PLOTLY
-import altair as alt
+
+# # Carregar a matriz do arquivo Excel
+# matriz = pd.read_excel(r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES/DASHBOARD/RESULTADOS_MATRIZ_COM_ERROS.xlsx')
+
+# # Definindo a coluna 'Parametro' como índice
+# matriz = matriz.set_index('Parametro').transpose()
+
+# # Convertendo a matriz em formato 'long' para usar no Altair
+# matriz_long = matriz.reset_index().melt(id_vars=['index'], var_name='Testes', value_name='% de Erros')
+
+# # Criando o heatmap com Altair
+# heatmap = alt.Chart(matriz_long).mark_rect().encode(
+#     x='Testes:N',
+#     y='index:N',
+#     color='% de Erros:Q',
+#     tooltip=['Testes', 'index', '% de Erros']
+# ).properties(
+#     width='container',  # Ajusta a largura ao tamanho do container do Streamlit
+#     height=400  # Ajuste a altura conforme necessário
+# ).configure_view(
+#     strokeWidth=0  # Remove as bordas
+# )
+
+# # Exibindo o gráfico no Streamlit
+# st.altair_chart(heatmap, use_container_width=True)
+
+
+
+
+
+
+
 import pandas as pd
 import streamlit as st
+import altair as alt
 
-# Carregar a matriz do arquivo Excel
-matriz = pd.read_excel(r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES/DASHBOARD/RESULTADOS_MATRIZ_COM_ERROS.xlsx')
+# Dados fornecidos (com tamanho consistente)
+dados = {
+    'Parametro': [
+        'detectar_platos', 'gradiente_de_amplitude_do_sinal', 'identificar_dados_nulos',
+        'identificar_duplicatas_tempo', 'identificar_gaps', 'lt_time_series_rate_of_change',
+        'max_min_test', 'range_check_environment', 'range_check_sensors', 'spike_test',
+        'st_time_series_segment_shift', 'taxa_de_mudanca_vertical', 'teste_continuidade_tempo',
+        'time_offset', 'verifica_dados_repetidos', 'verificar_altura_max_vs_sig',
+        'verificar_temperatura_vs_ponto_de_orvalho', 'verificar_velocidade_vs_rajada'
+    ],
+    'Amplitude_Cell#1': [0.0]*18,
+    'Speed(m/s)_Cell#1': [0.0, 0.0, 0.0, 0.0, 18.77, 0.0, 0.0, 33.58, 0.0, 0.0, 0.0, 0.0, 81.77, 76.78, 0.0, 0.0, 0.0, 0.0],
+    'Direction_Cell#1': [0.0]*18,
+    'Direction_Cell#2': [0.0]*18,
+    'Amplitude_Cell#2': [27.76, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 94.58, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    'Speed(m/s)_Cell#2': [0.0]*18,
+    'Amplitude_Cell#3': [0.0, 0.0, 62.91, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    'Speed(m/s)_Cell#3': [0.0]*18,
+    'Direction_Cell#3': [0.0, 0.0, 0.0, 0.0, 96.43, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    'Direction_Cell#4': [0.0]*18,
+    'Amplitude_Cell#4': [0.0]*18,
+    'Speed(m/s)_Cell#4': [0.0]*18,
+    'Amplitude_Cell#5': [0.0]*18,
+    'Speed(m/s)_Cell#5': [0.0]*18,
+    'Direction_Cell#5': [0.0]*18,
+    'Amplitude_Cell#6': [0.0]*18,
+    'Speed(m/s)_Cell#6': [0.0]*18,
+    'Direction_Cell#6': [0.0]*18,
+    'Amplitude_Cell#7': [0.0]*18,
+    'Speed(m/s)_Cell#7': [0.0]*18,
+}
 
-# Definindo a coluna 'Parametro' como índice
+# Convertendo para um DataFrame
+matriz = pd.DataFrame(dados)
+
+# Garantindo que 'Parametro' tenha 18 elementos
+dados['Parametro'] = dados['Parametro'][:18]
+
+# Convertendo para DataFrame novamente
+matriz = pd.DataFrame(dados)
+
+# Definindo 'Parametro' como índice
 matriz = matriz.set_index('Parametro').transpose()
 
-# Convertendo a matriz em formato 'long' para usar no Altair
+# Convertendo para formato 'long'
 matriz_long = matriz.reset_index().melt(id_vars=['index'], var_name='Testes', value_name='% de Erros')
 
 # Criando o heatmap com Altair
 heatmap = alt.Chart(matriz_long).mark_rect().encode(
     x='Testes:N',
-    y='index:N',
+    y='index',
     color='% de Erros:Q',
     tooltip=['Testes', 'index', '% de Erros']
 ).properties(
     width='container',  # Ajusta a largura ao tamanho do container do Streamlit
-    height=400  # Ajuste a altura conforme necessário
+    height=600  # Ajuste a altura para maximizar o gráfico
+).configure_axis(
+    labelFontSize=0,  # Remove as labels dos eixos
+    titleFontSize=14   # Mantém o título dos eixos com tamanho 14
 ).configure_view(
     strokeWidth=0  # Remove as bordas
 )
 
 # Exibindo o gráfico no Streamlit
 st.altair_chart(heatmap, use_container_width=True)
+
+
 
 
 
@@ -233,10 +308,10 @@ matriz = pd.read_excel(r'C:/Users/Rafael Alvarenga UMI/Desktop/PD_METEO/REPORTES
 matriz = matriz.set_index('Parametro')
 
 # Estilizando a tabela com arredondamento apenas para exibição, sem alterar o DataFrame original
-st.dataframe(matriz.round(2).style.background_gradient(cmap='Blues'))
+st.dataframe(matriz.round(2))
 
 
-#%% teste
+#%% TESTE
 
 
 
