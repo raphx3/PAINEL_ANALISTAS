@@ -27,7 +27,7 @@ st.title ('Reporte operacional para controle interno')
 
 #%% TEXTO 1
 st.subheader ('Sobre')
-st.markdown('Painel para a análise e tomada de decisões a partir de dados <b style="color:black">meteoceanográficos</b> referentes ao projeto PDMETEO. ', unsafe_allow_html=True)
+st.markdown('Painel para a análise e tomada de decisões a partir de dados <b style="color:black">meteoceanográficos</b> referentes ao projeto. ', unsafe_allow_html=True)
 st.markdown('A versão atual conta com dados fictícios de temperatura, umidade e precipitação sendo resumidas como estando <b style="color:green">aprovadas</b> ou <b style="color:red">reprovadas</b> considerando os critérios técnicos descritos em "Metologia".', unsafe_allow_html=True)
 
 
