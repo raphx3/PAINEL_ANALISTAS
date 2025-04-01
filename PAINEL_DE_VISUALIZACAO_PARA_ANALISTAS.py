@@ -297,7 +297,7 @@ st.altair_chart(heatmap, use_container_width=True)
 
 #%% MAPA DE CALOR PLOTLY
 
-st.markdown('É possível interagir com a tabela abaixo mas recomenda-se que se faça o dowload e uma investigação mais detalhada dos resultados apresentados.', unsafe_allow_html=True)
+#st.markdown('É possível interagir com a tabela abaixo mas recomenda-se que se faça o dowload e uma investigação mais detalhada dos resultados apresentados.', unsafe_allow_html=True)
 
 
 
@@ -308,7 +308,7 @@ st.markdown('É possível interagir com a tabela abaixo mas recomenda-se que se 
 #matriz = matriz.set_index('Parametro')
 
 # Estilizando a tabela com arredondamento apenas para exibição, sem alterar o DataFrame original
-st.dataframe(matriz.round(2))
+#st.dataframe(matriz.round(2))
 
 
 #%% TESTE
